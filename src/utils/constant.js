@@ -18,7 +18,14 @@ const availableUserRoles = Object.values(userRolesEnum);
 const availablePostStatuses = Object.values(postStatusEnum);
 const availablePostReviewActions = Object.values(postReviewActionEnum);
 
-export const DB_NAME = "inkwell";
+const DB_NAME = "inkwell";
+
+const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 24 * 60 * 60 * 1000,
+};
 
 export {
     userRolesEnum,
@@ -26,5 +33,7 @@ export {
     postStatusEnum,
     availablePostStatuses,
     postReviewActionEnum,
-    availablePostReviewActions,     
+    availablePostReviewActions,
+    cookieOptions,
+    DB_NAME,
 };
