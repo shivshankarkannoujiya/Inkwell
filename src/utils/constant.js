@@ -18,6 +18,8 @@ const availableUserRoles = Object.values(userRolesEnum);
 const availablePostStatuses = Object.values(postStatusEnum);
 const availablePostReviewActions = Object.values(postReviewActionEnum);
 
+export const DB_NAME = "inkwell";
+
 export {
     userRolesEnum,
     availableUserRoles,
