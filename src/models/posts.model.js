@@ -60,7 +60,7 @@ postSchema.pre("validate", async function (next) {
         let slug = baseSlug;
         let counter = 1;
 
-        while (await mongoose.model.Post.findOne({ slug })) {
+        while (await mongoose.models.Post.findOne({ slug })) {
             slug = `${baseSlug}-${counter++}`;
         }
         this.slug = slug;
