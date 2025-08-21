@@ -12,8 +12,8 @@ import { verifyAPI_KEY } from "../middlewares/api_key.middleware.js";
 const router = Router();
 
 router
-    .route("/posts")
-    .post(
+    .route("/posts/pending")
+    .get(
         verifyAPI_KEY,
         authMiddleware,
         validatePermission([userRolesEnum.ADMIN]),

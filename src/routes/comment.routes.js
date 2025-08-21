@@ -4,7 +4,7 @@ import {
     getPostComment,
     updatePostComment,
     deletePostComment,
-    toggleCommentLike,
+    toggleLikeOnComment,
 } from "../controllers/comment.controllers.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { verifyAPI_KEY } from "../middlewares/api_key.middleware.js";
@@ -15,6 +15,8 @@ router.route("/").post(verifyAPI_KEY, authMiddleware, addCommentToPost);
 router.route("/:postId").get(verifyAPI_KEY, authMiddleware, getPostComment);
 router.route("/:id").put(verifyAPI_KEY, authMiddleware, updatePostComment);
 router.route("/:id").delete(verifyAPI_KEY, authMiddleware, deletePostComment);
-router.route("/:id/like").put(verifyAPI_KEY, authMiddleware, toggleCommentLike);
+router
+    .route("/:id/like")
+    .put(verifyAPI_KEY, authMiddleware, toggleLikeOnComment);
 
 export default router;

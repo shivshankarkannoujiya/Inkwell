@@ -43,7 +43,6 @@ const approvePendingPost = asyncHandler(async (req, res) => {
         post: id,
         reviewer: req.user?._id,
         action: postReviewActionEnum.APPROVED,
-        comment: req.body.comment || "Approved",
     });
 
     return res

@@ -32,7 +32,10 @@ const createBlogPost = asyncHandler(async (req, res) => {
 });
 
 const listAllPublishedPosts = asyncHandler(async (_, res) => {
-    const posts = await Post.find({ status: postStatusEnum.APPROVED })
+    const posts = await Post.find({
+        status: postStatusEnum.APPROVED,
+        publishedAt: { $lte: new Date() },
+    })
         .populate("author", "username email")
         .populate("category", "title");
 

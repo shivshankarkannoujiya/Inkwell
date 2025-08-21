@@ -100,34 +100,49 @@ const deletePostComment = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "Comment deleted successfully"));
 });
 
-const toggleCommentLike = asyncHandler(async (req, res) => {
+const toggleLikeOnComment = asyncHandler(async (req, res) => {
     const { id } = req.params;
+    const userId = req.user?._id;
+
+    if (!id) {
+        throw new ApiError(400, "Comment ID is required");
+    }
 
     const comment = await Comment.findById(id);
-    if (!comment || comment.isDeleted) {
+    if (!comment) {
         throw new ApiError(404, "Comment not found");
     }
 
-    const userId = req.user?._id.toString();
-    const index = comment.likes.findIndex((u) => u.toString() === userId);
+    const isAlreadyLiked = comment.likes.includes(userId);
 
-    if (index === -1) {
-        comment.likes.push(userId);
+    if (isAlreadyLiked) {
+        comment.likes.pull(userId);
     } else {
-        comment.likes.splice(index, 1);
+        comment.likes.push(userId);
     }
 
-    return res
-        .status(200)
-        .json(
-            new ApiResponse(200, comment, "Comment like toggled successfully"),
-        );
+    await comment.save();
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                commentId: comment._id,
+                totalLikes: comment.likes.length,
+                liked: !isAlreadyLiked,
+            },
+            isAlreadyLiked
+                ? "Like removed from comment"
+                : "Like added to comment",
+        ),
+    );
 });
+
 
 export {
     addCommentToPost,
     getPostComment,
     updatePostComment,
     deletePostComment,
-    toggleCommentLike,
+    toggleLikeOnComment,
 };

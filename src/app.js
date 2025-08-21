@@ -33,7 +33,7 @@ import post_reviewRouter from "./routes/post_review.routes.js";
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/posts", postRouter);
-app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1/post_reviews", post_reviewRouter);
+app.use("/api/v1/comments", commentRouter);
 
 export default app;
