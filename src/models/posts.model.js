@@ -31,7 +31,7 @@ const postSchema = new mongoose.Schema(
             ref: "Category",
             required: true,
         },
-        
+
         status: {
             type: String,
             enum: availablePostStatuses,
@@ -49,5 +49,24 @@ const postSchema = new mongoose.Schema(
     },
     { timestamps: true },
 );
+
+postSchema.pre("validate", async function (next) {
+    if (this.title && !this.slug) {
+        let baseSlug = this.title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)+/g, "");
+
+        let slug = baseSlug;
+        let counter = 1;
+
+        while (await mongoose.model.Post.findOne({ slug })) {
+            slug = `${baseSlug}-${counter++}`;
+        }
+        this.slug = slug;
+    }
+
+    next();
+});
 
 export const Post = mongoose.model("Post", postSchema);

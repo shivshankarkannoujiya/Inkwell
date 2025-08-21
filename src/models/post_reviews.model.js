@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-import { availablePostReviewActions } from "../utils/constant.js";
+import {
+    availablePostReviewActions,
+    postReviewActionEnum,
+} from "../utils/constant.js";
 
 const postReviewSchema = new mongoose.Schema(
     {
@@ -23,11 +26,15 @@ const postReviewSchema = new mongoose.Schema(
 
         comment: {
             type: String,
-            required: true,
             trim: true,
+            required: function () {
+                return this.action !== postReviewActionEnum.APPROVED;
+            },
         },
     },
     { timestamps: true },
 );
+
+postReviewSchema.index({ post: 1, reviewer: 1 }, { unique: true });
 
 export const PostReview = mongoose.model("PostReview", postReviewSchema);
