@@ -24,13 +24,13 @@ const commentSchema = new mongoose.Schema(
 
         likes: [
             {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
             },
         ],
 
         parentComment: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Comment",
             default: null,
         },
