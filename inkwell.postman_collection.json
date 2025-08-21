@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "05e342aa-1192-4178-956c-45891d0f7857",
+		"name": "inkwell",
+		"description": "StartFragment\n\n## Blog Publishing API with Admin Approval Flow\n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38659407"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"username\": \"admin\",\r\n   \"email\": \"admin@gmail.com\",\r\n   \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{inkwell}}/auth/register",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\": \"one@gmail.com\",\r\n   \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{inkwell}}/auth/login",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCurrentUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "61f31c00a442f6191af0979fc91465833d59d731384ab957fd70561512e858d9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\": \"one@gmail.com\",\r\n   \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{inkwell}}/auth/me",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate_api_key",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\": \"one@gmail.com\",\r\n   \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{inkwell}}/auth/api_key",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"auth",
+								"api_key"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "61f31c00a442f6191af0979fc91465833d59d731384ab957fd70561512e858d9",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"title\": \"Entertainment\",\r\n   \"description\": \"Movies, music, and fun activities\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{inkwell}}/categories",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "61f31c00a442f6191af0979fc91465833d59d731384ab957fd70561512e858d9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{inkwell}}/categories",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "61f31c00a442f6191af0979fc91465833d59d731384ab957fd70561512e858d9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{inkwell}}/categories/68a7106e27172d612c0c6af8",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"categories",
+								"68a7106e27172d612c0c6af8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "create_blog_post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "ad7db066d61f36e8c31e7762f7bdc954a820b3d021b56146481a769fd371a6d5",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"title\": \"Top 10 VS Code Extensions for Developers\",\r\n   \"content\": \"Visual Studio Code is one of the most popular code editors today. In this post, we look at 10 must-have extensions that boost productivity and make coding easier.\",\r\n   \"category\": \"68a7102d27172d612c0c6ae4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{inkwell}}/posts",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin_review",
+			"item": [
+				{
+					"name": "list_pending_posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "61f31c00a442f6191af0979fc91465833d59d731384ab957fd70561512e858d9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{inkwell}}/post_reviews/posts/pending",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"post_reviews",
+								"posts",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post-2",
+			"item": [
+				{
+					"name": "list_All_published_posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "61f31c00a442f6191af0979fc91465833d59d731384ab957fd70561512e858d9",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{inkwell}}/posts",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "add_comment_to_post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "ad7db066d61f36e8c31e7762f7bdc954a820b3d021b56146481a769fd371a6d5",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"postId\": \"68a71460fc7a629110878ae0\",\r\n   \"content\": \"Great post on health! Can you also cover diet plans?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{inkwell}}/comments",
+							"host": [
+								"{{inkwell}}"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
