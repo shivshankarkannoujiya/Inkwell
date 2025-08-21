@@ -72,12 +72,15 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getLoggedInUser = asyncHandler(async (req, res) => {
+    console.log(req?.user);
     return res
         .status(200)
         .json(
-            200,
-            { user: req.user },
-            "loggedIn user fetched successfully !! ",
+            new ApiResponse(
+                200,
+                { user: req?.user },
+                "loggedIn user fetched successfully !! ",
+            ),
         );
 });
 
