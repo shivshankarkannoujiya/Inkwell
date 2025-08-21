@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
     getLoggedInUser,
     loginUser,
+    logoutUser,
     registerUser,
 } from "../controllers/auth.controllers.js";
 import { generateApiKey } from "../controllers/api_key.controllers.js";
@@ -14,5 +15,6 @@ router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/api_key").post(authMiddleware, generateApiKey);
 router.route("/me").get(verifyAPI_KEY, authMiddleware, getLoggedInUser);
+router.route("/logout").post(verifyAPI_KEY, authMiddleware, logoutUser);
 
 export default router;
