@@ -22,8 +22,8 @@ const apiKeySchema = new mongoose.Schema(
 
         expiresAt: {
             type: Date,
-            default: Date.now,
-            expires: "30d",
+            default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+            expires: 0,
         },
     },
     { timestamps: true },

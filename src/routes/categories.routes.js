@@ -1,27 +1,30 @@
 import { Router } from "express";
 import {
-    createCategoty,
+    createCategory,
     deleteCategory,
     listAllCategories,
 } from "../controllers/categorie.controllers.js";
-import { authiddleware } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { validatePermission } from "../middlewares/role.middleware.js";
 import { userRolesEnum } from "../utils/constant.js";
+import { verifyAPI_KEY } from "../middlewares/api_key.middleware.js";
 
 const router = Router();
 
 router
     .route("/")
     .post(
-        authiddleware,
+        verifyAPI_KEY,
+        authMiddleware,
         validatePermission([userRolesEnum.ADMIN]),
-        createCategoty,
+        createCategory,
     );
-router.route("/").get(authiddleware, listAllCategories);
+router.route("/").get(authMiddleware, verifyAPI_KEY, listAllCategories);
 router
     .route("/:id")
     .delete(
-        authiddleware,
+        verifyAPI_KEY,
+        authMiddleware,
         validatePermission([userRolesEnum.ADMIN]),
         deleteCategory,
     );

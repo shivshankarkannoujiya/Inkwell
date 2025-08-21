@@ -12,10 +12,13 @@ const generateApiKey = asyncHandler(async (req, res) => {
             .update(rawApiKey)
             .digest("hex");
 
+        const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+
         const apikey = await ApiKey.create({
             key: hashedApiKey,
             user: req.user?._id,
             isActive: true,
+            expiresAt
         });
 
         return res.status(201).json(

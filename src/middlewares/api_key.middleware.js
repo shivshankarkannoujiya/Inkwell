@@ -23,13 +23,13 @@ const verifyAPI_KEY = asyncHandler(async (req, _, next) => {
         throw new ApiError(401, "Invalid or inactive API Key");
     }
 
-    if (existingApiKey.expiresAt < new Date()) {
+    if (existingApiKey.expiresAt <= new Date()) {
         existingApiKey.isActive = false;
         await existingApiKey.save();
         throw new ApiError(401, "API Key has expired");
     }
 
-    req.user = { _id: existingApiKey.user };
+    req.apiKey = { user: existingApiKey.user, _id: existingApiKey._id };
     next();
 });
 

@@ -6,14 +6,15 @@ import {
     deletePostComment,
     toggleCommentLike,
 } from "../controllers/comment.controllers.js";
-import { authiddleware } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { verifyAPI_KEY } from "../middlewares/api_key.middleware.js";
 
 const router = Router();
 
-router.route("/").post(authiddleware, addCommentToPost);
-router.route("/:postId").get(authiddleware, getPostComment);
-router.route("/:id").put(authiddleware, updatePostComment);
-router.route("/:id").delete(authiddleware, deletePostComment);
-router.route("/:id/like").put(authiddleware, toggleCommentLike);
+router.route("/").post(verifyAPI_KEY, authMiddleware, addCommentToPost);
+router.route("/:postId").get(verifyAPI_KEY, authMiddleware, getPostComment);
+router.route("/:id").put(verifyAPI_KEY, authMiddleware, updatePostComment);
+router.route("/:id").delete(verifyAPI_KEY, authMiddleware, deletePostComment);
+router.route("/:id/like").put(verifyAPI_KEY, authMiddleware, toggleCommentLike);
 
 export default router;

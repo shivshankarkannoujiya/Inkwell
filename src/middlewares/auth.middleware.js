@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/async-handler.js";
 
 import jwt from "jsonwebtoken";
 
-const authiddleware = asyncHandler(async (req, res, next) => {
+const authMiddleware = asyncHandler(async (req, res, next) => {
     const token =
         req.cookies?.accessToken ||
         req.header("Authorization")?.replace("Bearer ", "");
@@ -25,8 +25,19 @@ const authiddleware = asyncHandler(async (req, res, next) => {
         next();
     } catch (error) {
         console.error("Authentication Error: ", error);
+
+        if (error.name === "TokenExpiredError") {
+            throw new ApiError(
+                401,
+                "Access token expired. Please refresh your token.",
+            );
+        }
+
+        if (error.name === "JsonWebTokenError") {
+            throw new ApiError(401, "Malformed or invalid token");
+        }
         throw new ApiError(401, "Invalid token");
     }
 });
 
-export { authiddleware };
+export { authMiddleware };
