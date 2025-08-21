@@ -1,6 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 
 const app = express();
 
@@ -24,12 +25,22 @@ app.use(
     }),
 );
 
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    message: "Too Many reuest from this IP, Please try later ",
+});
+
+app.use("/api", limiter);
+
+import healthCheckRouter from "./routes/health_check.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import postRouter from "./routes/post.routes.js";
 import categoriesRouter from "./routes/categories.routes.js";
 import commentRouter from "./routes/comment.routes.js";
 import post_reviewRouter from "./routes/post_review.routes.js";
 
+app.use("/api/v1/health", healthCheckRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/categories", categoriesRouter);
 app.use("/api/v1/posts", postRouter);
